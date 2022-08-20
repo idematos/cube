@@ -1,5 +1,5 @@
-import './App.css';
-import { Route, Routes } from 'react-router-dom';
+import "./App.css"
+import { Route, Routes } from "react-router-dom"
 
 function App() {
   return (
@@ -9,9 +9,9 @@ function App() {
         {/* <Route path='/login' element={<Login />} />
         <Route path='/products' element={<Products />} />
         <Route path='/' element={<Navigate to='/login' />} /> */}
-    </Routes>
+      </Routes>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
