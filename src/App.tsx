@@ -1,16 +1,19 @@
 import "./App.css"
 import { ReactElement } from "react"
 
-import { Route, Routes } from "react-router-dom"
+import { Navigate, Route, Routes } from "react-router-dom"
+
+import GlobalStyle from "./global-styles"
+import Login from "./views/login"
 
 function App(): ReactElement {
   return (
     <div className="App">
-      <h1>Welcome to React Router!</h1>
+      <GlobalStyle />
       <Routes>
-        {/* <Route path='/login' element={<Login />} />
-        <Route path='/products' element={<Products />} />
-        <Route path='/' element={<Navigate to='/login' />} /> */}
+        <Route path="/login" element={<Login />} />
+        {/* <Route path='/products' element={<Products />} /> */}
+        <Route path="/" element={<Navigate to="/login" />} />
       </Routes>
     </div>
   )
