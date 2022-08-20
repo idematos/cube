@@ -3,6 +3,10 @@ import React, { ReactElement, useState } from "react"
 import { TbEye, TbEyeOff } from "react-icons/tb"
 import styled, { css } from "styled-components"
 
+interface Props {
+  label: string
+}
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -61,10 +65,6 @@ const EyeOff = styled(TbEyeOff)`
   ${EyeIcon}
 `
 
-interface Props {
-  label: string
-}
-
 function Input({
   label,
   type,
@@ -76,7 +76,6 @@ function Input({
   return (
     <Container>
       <Label>{label}</Label>
-
       <InputRow>
         <StyledInput
           {...rest}
