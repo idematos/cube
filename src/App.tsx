@@ -1,7 +1,9 @@
 import "./App.css"
+import { ReactElement } from "react"
+
 import { Route, Routes } from "react-router-dom"
 
-function App() {
+function App(): ReactElement {
   return (
     <div className="App">
       <h1>Welcome to React Router!</h1>
