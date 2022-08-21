@@ -1,3 +1,4 @@
+using Cube.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace cube_api.Controllers;
@@ -6,16 +7,15 @@ namespace cube_api.Controllers;
 [Route("[controller]")]
 public class WeatherForecastController : ControllerBase
 {
+    private readonly ApplicationContext _context;
     private static readonly string[] Summaries = new[]
     {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
     };
 
-    private readonly ILogger<WeatherForecastController> _logger;
-
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
+    public WeatherForecastController(ApplicationContext context)
     {
-        _logger = logger;
+        _context = context;
     }
 
     [HttpGet(Name = "GetWeatherForecast")]

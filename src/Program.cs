@@ -1,8 +1,12 @@
+using Cube.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddMvc();
+builder.Services.AddDbContext<ApplicationContext>();
 
 var app = builder.Build();
 
