@@ -4,17 +4,18 @@ public class Config
 {
     public static string ConnectionString { get; set; }
 
-    static Config () 
-    { 
+    static Config()
+    {
         var host = Environment.GetEnvironmentVariable("DB_HOST");
         var database = Environment.GetEnvironmentVariable("DB_NAME");
         var user = Environment.GetEnvironmentVariable("DB_USER");
-        var password = Environment.GetEnvironmentVariable("DB_PASWORD");
-         
+        var password = Environment.GetEnvironmentVariable("DB_PASSWORD");
+
         if (host != null && database != null && user != null && password != null)
         {
             ConnectionString = $"Host={host};Database={database};Username={user};Password={password}";
-        } else 
+        }
+        else
         {
             throw new SystemException("Missing required environment variables.");
         }

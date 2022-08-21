@@ -11,7 +11,8 @@ builder.Services.AddDbContext<ApplicationContext>();
 var app = builder.Build();
 
 app.UseSwagger();
-app.UseSwaggerUI(options => {
+app.UseSwaggerUI(options =>
+{
     options.SwaggerEndpoint("/swagger/v1/swagger.json", "Cube v1");
     options.RoutePrefix = string.Empty;
 });
