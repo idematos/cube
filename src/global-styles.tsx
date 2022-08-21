@@ -19,8 +19,9 @@ const GlobalStyle = createGlobalStyle`
   body, #root {
     margin: 0;
     padding: 0;
+    width: 100vw;
     height: 100vh;
-
+    
     background-color: var(--white);
     font-family: var(--font-primary);
   }

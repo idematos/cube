@@ -10,16 +10,20 @@ interface Props {
 
 const Container = styled.div`
   background-color: var(--gray-100);
-  width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
+`
+
+const Content = styled.div`
+  padding: 30px;
 `
 
 function PageLayout({ children }: Props): ReactElement {
   return (
     <Container>
       <PageHeader />
-      {children}
+      <Content>{children}</Content>
     </Container>
   )
 }

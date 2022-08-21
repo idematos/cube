@@ -13,7 +13,6 @@ const Container = styled.div`
   border-bottom: 2px solid var(--gray-200);
   height: 20px;
   padding: 20px;
-  width: 100%;
 `
 
 function PageHeader(): ReactElement {
