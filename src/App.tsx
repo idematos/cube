@@ -5,7 +5,7 @@ import { Navigate, Route, Routes } from "react-router-dom"
 
 import GlobalStyle from "./global-styles"
 import Login from "./views/login"
-import Products from "./views/products"
+import Transactions from "./views/transactions"
 
 function App(): ReactElement {
   return (
@@ -13,7 +13,7 @@ function App(): ReactElement {
       <GlobalStyle />
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/products" element={<Products />} />
+        <Route path="/transactions" element={<Transactions />} />
         <Route path="/" element={<Navigate to="/login" />} />
       </Routes>
     </div>

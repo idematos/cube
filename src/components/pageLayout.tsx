@@ -3,8 +3,11 @@ import { ReactElement, ReactNode } from "react"
 import styled from "styled-components"
 
 import PageHeader from "./pageHeader"
+import TitleOptions from "./titleOptions"
 
 interface Props {
+  title: string
+  actionElement: ReactNode
   children: ReactNode
 }
 
@@ -15,15 +18,26 @@ const Container = styled.div`
   flex-direction: column;
 `
 
-const Content = styled.div`
+const PageContent = styled.div`
+  display: flex;
+  flex-direction: column;
   padding: 30px;
+  flex-grow: 1;
+  gap: 30px;
 `
 
-function PageLayout({ children }: Props): ReactElement {
+const PageBody = styled.div`
+  flex-grow: 1;
+`
+
+function PageLayout({ title, actionElement, children }: Props): ReactElement {
   return (
     <Container>
       <PageHeader />
-      <Content>{children}</Content>
+      <PageContent>
+        <TitleOptions title={title} actionElement={actionElement} />
+        <PageBody>{children}</PageBody>
+      </PageContent>
     </Container>
   )
 }

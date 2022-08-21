@@ -60,7 +60,7 @@ function Login(): ReactElement {
           <h1>Sign In</h1>
           <Input type="email" placeholder="name@mail.com" label="E-mail" />
           <Input type="password" placeholder="**********" label="Password" />
-          <StyledButton onClick={() => navigate("/products")}>
+          <StyledButton onClick={() => navigate("/transactions")}>
             Sign In
           </StyledButton>
         </LoginForm>
