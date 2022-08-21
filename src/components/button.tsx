@@ -7,11 +7,12 @@ interface Props {
 }
 
 const StyledButton = styled.button<Props>`
-  color: ${({ secondary }) => (secondary ? "var(--blue-700)" : "var(--white)")};
+  color: ${({ secondary }) =>
+    secondary ? "var(--dark-blue)" : "var(--white)"};
   background-color: ${({ secondary }) =>
-    secondary ? "var(--white)" : "var(--blue-700)"};
+    secondary ? "var(--white)" : "var(--dark-blue)"};
   border: ${({ secondary }) =>
-    secondary ? "1px solid var(--gray-300)" : "1px solid var(--blue-700)"};
+    secondary ? "1px solid var(--gray-300)" : "1px solid var(--dark-blue)"};
   font-weight: 600;
   min-width: 135px;
   min-height: 45px;

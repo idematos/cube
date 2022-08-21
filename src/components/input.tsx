@@ -18,7 +18,7 @@ const Container = styled.div`
 
 const Label = styled.label`
   display: flex;
-  color: var(--blue-700);
+  color: var(--dark-blue);
   font-size: 14px;
   font-weight: 600;
 `
@@ -42,7 +42,7 @@ const StyledInput = styled.input`
 
   &:focus {
     outline: none;
-    border: 1px solid var(--blue-700);
+    border: 1px solid var(--dark-blue);
   }
 
   &::placeholder {

@@ -3,6 +3,11 @@ import { ReactElement } from "react"
 import { TbFilesOff } from "react-icons/tb"
 import styled from "styled-components"
 
+interface Props {
+  title: string
+  subtitle: string
+}
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -28,12 +33,12 @@ const Subtitle = styled.span`
   color: var(--gray-400);
 `
 
-function Empty(): ReactElement {
+function Empty({ title, subtitle }: Props): ReactElement {
   return (
     <Container>
       <NoDataIcon size={70} />
-      <Title>No transactions yet</Title>
-      <Subtitle>Upload transactions files to view them here.</Subtitle>
+      <Title>{title}</Title>
+      <Subtitle>{subtitle}</Subtitle>
     </Container>
   )
 }

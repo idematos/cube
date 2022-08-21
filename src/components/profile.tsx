@@ -13,12 +13,12 @@ const Container = styled.div`
 const Name = styled.span`
   font-size: 16px;
   font-weight: 600;
-  color: var(--blue-700);
+  color: var(--dark-blue);
 `
 
 const LogoutIcon = styled(TbLogout)`
   cursor: pointer;
-  color: var(--blue-700);
+  color: var(--dark-blue);
 `
 
 function Profile(): ReactElement {

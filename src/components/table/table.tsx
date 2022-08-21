@@ -4,7 +4,9 @@ import styled from "styled-components"
 
 import Empty from "./empty"
 
-export interface Props {
+interface Props {
+  emptyTitle: string
+  emptySubtitle: string
   rows: any[]
   columns?: {
     name: string
@@ -45,10 +47,10 @@ const StyledRow = styled.tr`
   display: flex;
   height: 50px;
   border-bottom: 1px solid var(--gray-200);
-  color: var(--gray-700);
+  color: var(--gray-600);
 
   :hover {
-    background-color: var(--purple-100);
+    background-color: var(--light-purple);
   }
 `
 
@@ -60,7 +62,12 @@ const StyledData = styled.td`
   font-size: 14px;
 `
 
-function Table({ rows, columns }: Props): ReactElement {
+function Table({
+  emptyTitle,
+  emptySubtitle,
+  rows,
+  columns,
+}: Props): ReactElement {
   const hasData = !!rows.length
 
   const [arr, setArr] = useState<any[]>(rows)
@@ -90,7 +97,7 @@ function Table({ rows, columns }: Props): ReactElement {
       </Body>
     </StyledTable>
   ) : (
-    <Empty />
+    <Empty title={emptyTitle} subtitle={emptySubtitle} />
   )
 }
 
