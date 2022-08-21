@@ -1,6 +1,7 @@
 import { ReactElement } from "react"
 
 import { TbBox } from "react-icons/tb"
+import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 
 import loginImage from "../assets/login-image.png"
@@ -44,7 +45,13 @@ const LoginImage = styled.img`
   height: 100%;
 `
 
+const StyledButton = styled(Button)`
+  width: 100%;
+`
+
 function Login(): ReactElement {
+  const navigate = useNavigate()
+
   return (
     <Container>
       <LoginContent>
@@ -53,7 +60,9 @@ function Login(): ReactElement {
           <h1>Sign In</h1>
           <Input type="email" placeholder="name@mail.com" label="E-mail" />
           <Input type="password" placeholder="**********" label="Password" />
-          <Button width="100%">Sign In</Button>
+          <StyledButton onClick={() => navigate("/products")}>
+            Sign In
+          </StyledButton>
         </LoginForm>
       </LoginContent>
       <LoginImage src={loginImage} alt="Login" />

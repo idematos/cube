@@ -21,7 +21,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     height: 100vh;
 
-    background: var(--white);
+    background-color: var(--white);
     font-family: var(--font-primary);
   }
 
