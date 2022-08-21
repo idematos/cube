@@ -13,6 +13,8 @@ const GlobalStyle = createGlobalStyle`
 
     --blue-700: #021D3B;
 
+    --purple-100: #ebecfd;
+
     --font-primary: 'Raleway', sans-serif;
   }
 

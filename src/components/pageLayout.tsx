@@ -22,11 +22,15 @@ const PageContent = styled.div`
   display: flex;
   flex-direction: column;
   padding: 30px;
-  flex-grow: 1;
+  min-height: 0;
   gap: 30px;
+  flex-grow: 1;
 `
 
 const PageBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
   flex-grow: 1;
 `
 

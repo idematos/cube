@@ -8,7 +8,10 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: var(--white);
+  border-radius: 10px;
   gap: 20px;
+  flex-grow: 1;
 `
 
 const NoDataIcon = styled(TbFilesOff)`
