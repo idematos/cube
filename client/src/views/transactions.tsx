@@ -3,8 +3,10 @@ import { ReactElement, useEffect, useState } from "react"
 import axios, { AxiosResponse } from "axios"
 import { TbUpload } from "react-icons/tb"
 
+import Balance from "../components/balance"
 import Button from "../components/button"
 import PageLayout from "../components/pageLayout"
+import Select from "../components/select"
 import Table, { TableColumns } from "../components/table/table"
 import UploadModal from "../components/uploadModal"
 
@@ -55,12 +57,12 @@ function Transactions(): ReactElement {
   return (
     <PageLayout
       title="Transactions"
-      actionElements={[
+      actionElements={
         <Button secondary onClick={handleUploadModal}>
           <TbUpload size={18} />
           Upload File
-        </Button>,
-      ]}
+        </Button>
+      }
     >
       <Table
         emptyTitle="No transactions yet"

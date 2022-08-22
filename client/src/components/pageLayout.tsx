@@ -7,8 +7,9 @@ import TitleOptions from "./titleOptions"
 
 interface Props {
   title: string
-  actionElements: ReactNode[]
-  children: ReactNode
+  actionElements?: ReactNode
+  rightElement?: ReactNode
+  children?: ReactNode
 }
 
 const Container = styled.div`
@@ -27,12 +28,28 @@ const PageContent = styled.div`
   flex-grow: 1;
 `
 
-function PageLayout({ children, title, actionElements }: Props): ReactElement {
+const HeaderContent = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-grow: 1;
+`
+
+function PageLayout({
+  children,
+  title,
+  actionElements,
+  rightElement,
+}: Props): ReactElement {
   return (
     <Container>
       <HeaderBar />
       <PageContent>
-        <TitleOptions title={title} actionElements={actionElements} />
+        <HeaderContent>
+          <TitleOptions title={title} actionElements={actionElements} />
+          {rightElement}
+        </HeaderContent>
         {children}
       </PageContent>
     </Container>

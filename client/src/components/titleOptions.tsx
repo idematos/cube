@@ -4,7 +4,7 @@ import styled from "styled-components"
 
 interface Props {
   title: string
-  actionElements: ReactNode[]
+  actionElements: ReactNode
 }
 
 const Container = styled.div`

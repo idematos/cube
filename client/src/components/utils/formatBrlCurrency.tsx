@@ -1,0 +1,12 @@
+function FormatCurrency(
+  value: number,
+  language: string,
+  currencyCode: string
+): string {
+  return new Intl.NumberFormat(language, {
+    currency: currencyCode,
+    style: "currency",
+  }).format(value)
+}
+
+export default FormatCurrency
