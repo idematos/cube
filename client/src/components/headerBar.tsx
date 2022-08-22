@@ -15,10 +15,14 @@ const Container = styled.div`
   padding: 20px;
 `
 
+const LogoIcon = styled(TbBox)`
+  color: var(--dark-blue);
+`
+
 function HeaderBar(): ReactElement {
   return (
     <Container>
-      <TbBox size={35} />
+      <LogoIcon size={35} />
       <Profile />
     </Container>
   )
