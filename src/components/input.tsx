@@ -19,7 +19,7 @@ const Container = styled.div`
 const Label = styled.label`
   display: flex;
   color: var(--dark-blue);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
 `
 
@@ -32,7 +32,7 @@ const InputRow = styled.div`
 
 const StyledInput = styled.input`
   width: 100%;
-  height: 35px;
+  height: 30px;
   padding: 4px 12px;
   font-size: 1rem;
   border-radius: 4px;

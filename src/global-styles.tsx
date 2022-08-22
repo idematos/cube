@@ -14,6 +14,7 @@ const GlobalStyle = createGlobalStyle`
     --gray-600: #424242;
 
     --dark-blue: #021D3B;
+    --blue: rgba(2, 28, 59, 0.8);
 
     --light-purple: #ebecfd;
 
@@ -37,6 +38,7 @@ const GlobalStyle = createGlobalStyle`
 
   span {
     color: var(--gray-500);
+    font-size: 14px;
   }
 `
 

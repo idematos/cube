@@ -93,7 +93,7 @@ const FormFooter = styled.div`
   justify-content: space-around;
   border-top: 1px solid var(--gray-200);
   width: 100%;
-  padding: 30px 0;
+  padding: 20px 0;
 `
 
 const StyledSpan = styled.span`
@@ -119,7 +119,7 @@ const FileIconBox = styled.div`
 const FileDetails = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  justify-content: space-around;
   flex-grow: 1;
 `
 
@@ -173,7 +173,7 @@ function UploadModal({ isOpen, onClose }: Props): ReactElement {
     <Container isOpen={isOpen} onClick={onClose}>
       <Card onClick={(e) => e.stopPropagation()}>
         <FormContent>
-          <h2>Upload File</h2>
+          <h3>Upload File</h3>
           <span>Upload a file from your computer.</span>
           <UploadBox ref={dropZone} isDragging={isDragging}>
             <Input
@@ -182,7 +182,7 @@ function UploadModal({ isOpen, onClose }: Props): ReactElement {
               ref={inputRef}
               onChange={(e) => changeHandler(e.target.files)}
             />
-            <UploadFileIcon size={65} />
+            <UploadFileIcon size={60} />
             <h5>Click to upload or drag and drop file here.</h5>
             <StyledSpan>Maximum file size 10MB.</StyledSpan>
           </UploadBox>
@@ -192,7 +192,7 @@ function UploadModal({ isOpen, onClose }: Props): ReactElement {
                 <StyledFileIcon size={20} />
               </FileIconBox>
               <FileDetails>
-                <h5>{selectedFile.name}</h5>
+                <h6>{selectedFile.name}</h6>
                 <StyledSpan>
                   {(selectedFile.size / 1000).toFixed(2)} KB
                 </StyledSpan>
@@ -205,7 +205,9 @@ function UploadModal({ isOpen, onClose }: Props): ReactElement {
           <StyledButton secondary onClick={onClose}>
             Cancel
           </StyledButton>
-          <StyledButton onClick={handleSubmission}>Upload file</StyledButton>
+          <StyledButton disabled={!selectedFile} onClick={handleSubmission}>
+            Upload file
+          </StyledButton>
         </FormFooter>
       </Card>
     </Container>

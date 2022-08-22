@@ -36,7 +36,7 @@ const LoginForm = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  width: 55%;
+  width: 50%;
   gap: 40px;
 `
 
