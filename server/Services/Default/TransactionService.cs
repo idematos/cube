@@ -13,19 +13,22 @@ public class TransactionService : ITransactionService
         _context = context;
     }
 
-    public void ParseTransactions(IEnumerable<string> transactions)
+    public void ParseTransactions(IEnumerable<string> transactionList)
     {
-        var transaction_types = _context.TransactionTypes.ToList();
+        var transactions = _context.Transactions.ToList();
+        var transactionTypes = _context.TransactionTypes.ToList();
 
-        var parsed_transactions = transactions.Select(t =>
+        var parsedTransactions = transactionList.Select(t =>
         {
-            if (t.Length < 67) throw new ArgumentException($"Found malformed line with only {t.Length} characters.");
+            if (t.Length < 67)
+                throw new ArgumentException($"Found malformed line with only {t.Length} characters.");
 
             if (!int.TryParse(t[0].ToString(), out int typeId))
                 throw new ArgumentException("First character is not a valid transaction type id.");
 
-            var type = transaction_types.Where(tt => tt.Id == typeId).SingleOrDefault();
-            if (type == null) throw new ArgumentException($"Could not find a valid transacion type with id {t[0]}");
+            var type = transactionTypes.Where(tt => tt.Id == typeId).SingleOrDefault();
+            if (type == null)
+                throw new ArgumentException($"Could not find a valid transacion type with id {t[0]}");
 
             var date = DateTime.Parse(t[1..25], CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind).ToUniversalTime();
 
@@ -39,7 +42,16 @@ public class TransactionService : ITransactionService
             return new Transaction(type, date, productDescription, value / 100, sellerName);
         }).ToList();
 
-        _context.Transactions.UpdateRange(parsed_transactions);
+        foreach (var parsedTransaction in parsedTransactions)
+        {
+            var existing = transactions.SingleOrDefault(t => t.Equals(parsedTransaction));
+            if (existing != null)
+                existing.Update(parsedTransaction);
+            else
+                transactions.Add(parsedTransaction);
+        }
+
+        _context.Transactions.UpdateRange(transactions);
         _context.SaveChanges();
     }
 }

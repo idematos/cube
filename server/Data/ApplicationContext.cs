@@ -18,6 +18,10 @@ public class ApplicationContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Transaction>()
+            .HasIndex(t => new { t.TypeId, t.Date, t.ProductDescription, t.Value, t.SellerName })
+            .IsUnique();
+
         modelBuilder.Entity<TransactionType>().Property(tt => tt.Nature).HasConversion
         (
             v => v.ToString(),
