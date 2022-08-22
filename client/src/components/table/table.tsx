@@ -1,17 +1,24 @@
-import React, { ReactElement, useEffect, useState } from "react"
+import React, { ReactElement } from "react"
 
+import get from "lodash/get"
 import styled from "styled-components"
 
 import Empty from "./empty"
 
+export interface TableRows {
+  [key: string]: string | number
+}
+
+export interface TableColumns {
+  path: string
+  label: string
+}
+
 interface Props {
   emptyTitle: string
   emptySubtitle: string
-  rows: any[]
-  columns?: {
-    name: string
-    label: string
-  }[]
+  rows?: TableRows[] | null
+  columns?: TableColumns[]
 }
 
 const StyledTable = styled.table`
@@ -59,7 +66,7 @@ const StyledData = styled.td`
   align-items: center;
   width: 100%;
   padding: 15px;
-  font-size: 14px;
+  font-size: 12px;
 `
 
 function Table({
@@ -68,30 +75,24 @@ function Table({
   rows,
   columns,
 }: Props): ReactElement {
-  const hasData = !!rows.length
-
-  const [arr, setArr] = useState<any[]>(rows)
-
-  useEffect(() => {
-    setArr(rows)
-  }, [])
+  const hasData = rows && rows.length
 
   return hasData ? (
     <StyledTable>
       <Header>
         <StyledRow>
           {columns?.map((column) => (
-            <HeaderRow key={column.name}>{column.label}</HeaderRow>
+            <HeaderRow key={column.path}>{column.label}</HeaderRow>
           ))}
         </StyledRow>
       </Header>
 
       <Body>
-        {arr.map((row, arrIdx) => (
+        {rows.map((row, arrIdx) => (
           <StyledRow key={arrIdx}>
-            {columns?.map((column, colIdx) => {
-              return <StyledData key={colIdx}>{row[column.name]}</StyledData>
-            })}
+            {columns?.map((column, colIdx) => (
+              <StyledData key={colIdx}>{get(row, column.path)}</StyledData>
+            ))}
           </StyledRow>
         ))}
       </Body>

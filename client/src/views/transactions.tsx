@@ -1,19 +1,56 @@
-import { ReactElement, useState } from "react"
+import { ReactElement, useEffect, useState } from "react"
 
+import axios, { AxiosResponse } from "axios"
 import { TbFileUpload } from "react-icons/tb"
-import styled from "styled-components"
 
 import Button from "../components/button"
 import PageLayout from "../components/pageLayout"
-import Table from "../components/table/table"
+import Table, { TableColumns } from "../components/table/table"
 import UploadModal from "../components/uploadModal"
+
+function fetchTransactions(): Promise<AxiosResponse> {
+  return axios.get("Transaction")
+}
+
+const transactionColumns: TableColumns[] = [
+  {
+    path: "date",
+    label: "Date",
+  },
+  {
+    path: "type.description",
+    label: "Type",
+  },
+  {
+    path: "sellerName",
+    label: "Seller",
+  },
+  {
+    path: "productDescription",
+    label: "Product",
+  },
+  {
+    path: "value",
+    label: "Value",
+  },
+]
 
 function Transactions(): ReactElement {
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false)
+  const [transactions, setTransactions] = useState(null)
 
-  const handleUploadModal = () => {
+  const handleUploadModal = (): void => {
     setIsUploadModalOpen(!isUploadModalOpen)
   }
+
+  useEffect(() => {
+    ;(async () => {
+      const response = await fetchTransactions()
+      if (response.status === 200) {
+        setTransactions(response.data)
+      }
+    })()
+  }, [])
 
   return (
     <PageLayout
@@ -28,8 +65,8 @@ function Transactions(): ReactElement {
       <Table
         emptyTitle="No transactions yet"
         emptySubtitle="Upload transactions files to view them here."
-        rows={[]}
-        columns={[]}
+        rows={transactions}
+        columns={transactionColumns}
       />
       <UploadModal isOpen={isUploadModalOpen} onClose={handleUploadModal} />
     </PageLayout>

@@ -1,5 +1,6 @@
 import { ReactElement, useEffect, useRef, useState } from "react"
 
+import axios, { AxiosResponse } from "axios"
 import { TbFileUpload, TbFile, TbX } from "react-icons/tb"
 import styled from "styled-components"
 
@@ -136,9 +137,14 @@ const StyledButton = styled(Button)`
   width: 40%;
 `
 
+function uploadFile(file: File): Promise<AxiosResponse> {
+  return axios.postForm("Transaction/file", { file })
+}
+
 function UploadModal({ isOpen, onClose }: Props): ReactElement {
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [isDragging, setIsDragging] = useState(false)
+  const [isUploading, setIsUploading] = useState(false)
   const dropZone = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -167,7 +173,19 @@ function UploadModal({ isOpen, onClose }: Props): ReactElement {
     dropZone.current.addEventListener("drop", () => setIsDragging(false), false)
   }, [])
 
-  const handleSubmission = () => {}
+  const handleSubmission = (): void => {
+    if (!selectedFile) return
+    setIsUploading(true)
+    ;(async () => {
+      const response = await uploadFile(selectedFile)
+      setIsUploading(false)
+      if (response.status === 200) {
+        console.log("Subiu com sucesso!")
+      } else {
+        console.log({ response })
+      }
+    })()
+  }
 
   return (
     <Container isOpen={isOpen} onClick={onClose}>

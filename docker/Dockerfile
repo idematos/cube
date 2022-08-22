@@ -1,7 +1,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 
 # Copy required files
-COPY ../src/ src/
+COPY ../server/ src/
 
 # Build the application
 RUN dotnet publish ./src/cube-api.csproj -c Release
