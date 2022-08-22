@@ -24,10 +24,6 @@ interface Props {
 const StyledTable = styled.table`
   display: flex;
   flex-direction: column;
-  background-color: var(--white);
-  border: 1px solid var(--gray-200);
-  border-radius: 10px;
-  padding: 25px;
   min-height: 0;
   flex-grow: 1;
 `
@@ -39,8 +35,8 @@ const Header = styled.thead`
 const HeaderRow = styled.th`
   display: flex;
   width: 100%;
-  padding: 15px;
-  font-size: 12px;
+  padding: 25px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--gray-400);
   background-color: var(--white);
@@ -52,12 +48,12 @@ const Body = styled.tbody`
 
 const StyledRow = styled.tr`
   display: flex;
-  height: 50px;
+  height: 60px;
   border-bottom: 1px solid var(--gray-200);
   color: var(--gray-600);
 
   :hover {
-    background-color: var(--light-purple);
+    background-color: var(--gray-100);
   }
 `
 
@@ -65,8 +61,8 @@ const StyledData = styled.td`
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 15px;
-  font-size: 12px;
+  padding: 25px;
+  font-size: 14px;
 `
 
 function Table({

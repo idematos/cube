@@ -14,13 +14,13 @@ const StyledButton = styled.button<Props>`
   border: ${({ secondary }) =>
     secondary ? "1px solid var(--gray-300)" : "1px solid var(--dark-blue)"};
   font-weight: 600;
-  min-width: 135px;
+  min-width: 150px;
   min-height: 40px;
-  font-size: 0.9rem;
+  font-size: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
   border-radius: 6px;
   cursor: pointer;
   ${({ disabled }) =>

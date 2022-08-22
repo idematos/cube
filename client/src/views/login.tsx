@@ -47,6 +47,7 @@ const LoginImage = styled.img`
 
 const StyledButton = styled(Button)`
   width: 100%;
+  height: 50px;
 `
 
 function Login(): ReactElement {

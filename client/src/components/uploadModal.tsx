@@ -35,8 +35,8 @@ const Card = styled.div`
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  min-height: 400px;
-  min-width: 500px;
+  min-height: 500px;
+  min-width: 600px;
   background: var(--white);
   border-radius: 15px;
 `
@@ -46,7 +46,7 @@ const FormContent = styled.div`
   flex-direction: column;
   align-items: stretch;
   padding: 30px;
-  gap: 10px;
+  gap: 20px;
   flex-grow: 1;
 `
 
@@ -56,7 +56,7 @@ const UploadBox = styled.div<UploadProps>`
   align-items: center;
   border: 3px dashed var(--dark-blue);
   border-radius: 15px;
-  gap: 10px;
+  gap: 15px;
   padding: 30px;
   margin: 20px 0 0 0;
   cursor: pointer;
@@ -66,7 +66,7 @@ const UploadBox = styled.div<UploadProps>`
     isDragging ? "var(--gray-200)" : "var(--white)"};
 
   &:hover {
-    background-color: var(--light-purple);
+    background-color: var(--gray-100);
   }
 `
 
@@ -94,11 +94,11 @@ const FormFooter = styled.div`
   justify-content: space-around;
   border-top: 1px solid var(--gray-200);
   width: 100%;
-  padding: 20px 0;
+  padding: 30px 0;
 `
 
 const StyledSpan = styled.span`
-  font-size: 12px;
+  font-size: 14px;
 `
 
 const FileBox = styled.div`
@@ -107,8 +107,8 @@ const FileBox = styled.div`
   border: 1px solid var(--gray-300);
   border-radius: 10px;
   margin: 20px 0 0 0;
-  padding: 10px;
-  gap: 10px;
+  padding: 15px;
+  gap: 15px;
 `
 
 const FileIconBox = styled.div`
@@ -191,7 +191,7 @@ function UploadModal({ isOpen, onClose }: Props): ReactElement {
     <Container isOpen={isOpen} onClick={onClose}>
       <Card onClick={(e) => e.stopPropagation()}>
         <FormContent>
-          <h3>Upload File</h3>
+          <h2>Upload File</h2>
           <span>Upload a file from your computer.</span>
           <UploadBox ref={dropZone} isDragging={isDragging}>
             <Input
@@ -201,16 +201,16 @@ function UploadModal({ isOpen, onClose }: Props): ReactElement {
               onChange={(e) => changeHandler(e.target.files)}
             />
             <UploadFileIcon size={60} />
-            <h5>Click to upload or drag and drop file here.</h5>
+            <h4>Click to upload or drag and drop file here.</h4>
             <StyledSpan>Maximum file size 10MB.</StyledSpan>
           </UploadBox>
           {selectedFile && (
             <FileBox>
               <FileIconBox>
-                <StyledFileIcon size={20} />
+                <StyledFileIcon size={25} />
               </FileIconBox>
               <FileDetails>
-                <h6>{selectedFile.name}</h6>
+                <h5>{selectedFile.name}</h5>
                 <StyledSpan>
                   {(selectedFile.size / 1000).toFixed(2)} KB
                 </StyledSpan>

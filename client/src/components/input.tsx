@@ -32,7 +32,7 @@ const InputRow = styled.div`
 
 const StyledInput = styled.input`
   width: 100%;
-  height: 30px;
+  height: 40px;
   padding: 4px 12px;
   font-size: 1rem;
   border-radius: 4px;

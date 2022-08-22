@@ -15,7 +15,7 @@ const Container = styled.div`
   padding: 20px;
 `
 
-function PageHeader(): ReactElement {
+function HeaderBar(): ReactElement {
   return (
     <Container>
       <TbBox size={35} />
@@ -24,4 +24,4 @@ function PageHeader(): ReactElement {
   )
 }
 
-export default PageHeader
+export default HeaderBar

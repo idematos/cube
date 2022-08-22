@@ -16,8 +16,6 @@ const GlobalStyle = createGlobalStyle`
     --dark-blue: #021D3B;
     --blue: rgba(2, 28, 59, 0.8);
 
-    --light-purple: #ebecfd;
-
     --font-primary: 'Raleway', sans-serif;
   }
 
@@ -38,7 +36,7 @@ const GlobalStyle = createGlobalStyle`
 
   span {
     color: var(--gray-500);
-    font-size: 14px;
+    font-size: 18px;
   }
 `
 

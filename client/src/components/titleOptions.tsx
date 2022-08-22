@@ -4,20 +4,27 @@ import styled from "styled-components"
 
 interface Props {
   title: string
-  actionElement: ReactNode
+  actionElements: ReactNode[]
 }
 
 const Container = styled.div`
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 20px;
 `
 
-function TitleOptions({ title, actionElement }: Props): ReactElement {
+const Elements = styled.div`
+  display: flex;
+  gap: 20px;
+`
+
+function TitleOptions({ title, actionElements }: Props): ReactElement {
   return (
     <Container>
-      <h2>{title}</h2>
-      {actionElement}
+      <h1>{title}</h1>
+      <Elements>{actionElements}</Elements>
     </Container>
   )
 }

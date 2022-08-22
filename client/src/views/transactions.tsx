@@ -1,7 +1,7 @@
 import { ReactElement, useEffect, useState } from "react"
 
 import axios, { AxiosResponse } from "axios"
-import { TbFileUpload } from "react-icons/tb"
+import { TbUpload } from "react-icons/tb"
 
 import Button from "../components/button"
 import PageLayout from "../components/pageLayout"
@@ -55,12 +55,12 @@ function Transactions(): ReactElement {
   return (
     <PageLayout
       title="Transactions"
-      actionElement={
+      actionElements={[
         <Button secondary onClick={handleUploadModal}>
-          <TbFileUpload size={20} />
+          <TbUpload size={18} />
           Upload File
-        </Button>
-      }
+        </Button>,
+      ]}
     >
       <Table
         emptyTitle="No transactions yet"
