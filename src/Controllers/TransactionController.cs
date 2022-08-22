@@ -1,5 +1,7 @@
 using Cube.Data;
+using Cube.Extensions;
 using Cube.Models;
+using Cube.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,15 +12,28 @@ namespace Cube.Controllers;
 public class TransactionController : ControllerBase
 {
     private readonly ApplicationContext _context;
+    private readonly ITransactionService _transactionService;
 
-    public TransactionController(ApplicationContext context)
+    public TransactionController(ApplicationContext context, ITransactionService transactionService)
     {
-        _context = context;
+        (_context, _transactionService) = (context, transactionService);
     }
 
     [HttpGet]
-    public IEnumerable<Transaction> Get()
+    [ProducesResponseType(typeof(IEnumerable<Transaction>), StatusCodes.Status200OK)]
+    public IActionResult Get()
     {
-        return _context.Transactions.Include(t => t.Type).ToList();
+        var result = _context.Transactions.Include(t => t.Type).ToList();
+        return Ok(result);
     }
+
+    [HttpPost("file")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public IActionResult PostTransactionsFile([FromForm] IFormFile file)
+    {
+        _transactionService.ParseTransactions(file.ReadAsList());
+        return Ok();
+    }
+
 }
+

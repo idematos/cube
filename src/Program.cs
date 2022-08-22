@@ -1,4 +1,6 @@
 using Cube.Data;
+using Cube.Services;
+using Cube.Services.Default;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +9,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMvc();
 builder.Services.AddDbContext<ApplicationContext>();
+builder.Services.AddScoped<ITransactionService, TransactionService>();
 
 var app = builder.Build();
 
