@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace Cube.Models;
 
 public enum TransactionNature
@@ -12,6 +14,7 @@ public class TransactionType
     public string Description { get; set; }
     public TransactionNature Nature { get; set; }
 
+    [JsonIgnore]
     public List<Transaction> Transactions { get; set; } = default!;
 
     public TransactionType(string description, TransactionNature nature)
