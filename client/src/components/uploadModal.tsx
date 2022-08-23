@@ -58,8 +58,7 @@ const UploadBox = styled.div<UploadProps>`
   border-radius: 15px;
   gap: 15px;
   padding: 30px;
-  margin: 20px 0 0 0;
-  cursor: pointer;
+  margin: 25px 0 0 0;
   position: relative;
 
   background-color: ${({ isDragging }) =>
@@ -70,18 +69,21 @@ const UploadBox = styled.div<UploadProps>`
   }
 `
 
-const Input = styled.input`
+const InputBox = styled.div`
+  display: block;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   opacity: 0;
-  cursor: pointer;
+`
 
-  &:valid {
-    background-color: var(--gray-200);
-  }
+const Input = styled.input`
+  display: block;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
 `
 
 const UploadFileIcon = styled(TbFileUpload)`
@@ -196,12 +198,14 @@ function UploadModal({ isOpen, onClose }: Props): ReactElement {
           <h2>Upload File</h2>
           <span>Upload a file from your computer.</span>
           <UploadBox ref={dropZone} isDragging={isDragging}>
-            <Input
-              type="file"
-              accept=".txt"
-              ref={inputRef}
-              onChange={(e) => changeHandler(e.target.files)}
-            />
+            <InputBox>
+              <Input
+                type="file"
+                accept=".txt"
+                ref={inputRef}
+                onChange={(e) => changeHandler(e.target.files)}
+              />
+            </InputBox>
             <UploadFileIcon size={60} />
             <h4>Click to upload or drag and drop file here.</h4>
             <StyledSpan>Maximum file size 10MB.</StyledSpan>
