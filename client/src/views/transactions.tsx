@@ -2,6 +2,7 @@ import { ReactElement, useEffect, useState } from "react"
 
 import axios, { AxiosResponse } from "axios"
 import get from "lodash/get"
+import moment from "moment-timezone"
 import { TbUpload } from "react-icons/tb"
 
 import Balance from "../components/balance"
@@ -10,6 +11,15 @@ import PageLayout from "../components/pageLayout"
 import Select from "../components/select"
 import Table from "../components/table/table"
 import UploadModal from "../components/uploadModal"
+
+type Transaction = {
+  id: number
+  date: string
+  typeId: number
+  sellerName: string
+  productDescription: string
+  value: number
+}
 
 function fetchTransactions(): Promise<AxiosResponse> {
   return axios.get("Transaction")
@@ -20,13 +30,14 @@ function Transactions(): ReactElement {
   const expenseTypeId = 3
 
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false)
-  const [transactions, setTransactions] = useState<any[]>([])
+  const [transactions, setTransactions] = useState<Transaction[]>([])
   const [selectedSeller, setSellectedSeller] = useState(allSellers)
 
-  const filterBySeller = (): any[] => {
+  const filterBySeller = (): Transaction[] => {
     if (selectedSeller === allSellers) return transactions
     return transactions.filter((t) => t.sellerName === selectedSeller)
   }
+
   const filteredSellers = filterBySeller()
 
   const changeSelectedSeller = (
@@ -62,7 +73,14 @@ function Transactions(): ReactElement {
     ;(async () => {
       const response = await fetchTransactions()
       if (response.status === 200) {
-        setTransactions(response.data)
+        const timeZone = moment.tz.guess()
+
+        setTransactions(
+          response.data.map((d: Transaction) => ({
+            ...d,
+            date: moment.utc(d.date).tz(timeZone).format("lll"),
+          }))
+        )
       }
     })()
   }, [])
@@ -91,7 +109,7 @@ function Transactions(): ReactElement {
       <Table
         emptyTitle="No transactions yet"
         emptySubtitle="Upload transactions files to view them here."
-        rows={filterBySeller()}
+        rows={filteredSellers}
       />
       <UploadModal isOpen={isUploadModalOpen} onClose={handleUploadModal} />
     </PageLayout>

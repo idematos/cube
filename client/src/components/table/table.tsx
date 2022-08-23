@@ -7,14 +7,14 @@ import styled, { css } from "styled-components"
 import FormatBrlCurrency from "../utils/formatBrlCurrency"
 import Empty from "./empty"
 
-export interface TableRows {
+export interface TableRow {
   [key: string]: string | number
 }
 
 interface Props {
   emptyTitle: string
   emptySubtitle: string
-  rows?: TableRows[] | null
+  rows?: TableRow[] | null
 }
 
 const StyledTable = styled.table`
@@ -121,12 +121,7 @@ function Table({ emptyTitle, emptySubtitle, rows }: Props): ReactElement {
           <StyledRow key={arrIdx}>
             <StyledId key={0}>#{get(row, "id")}</StyledId>
 
-            <StyledData key={1}>
-              {new Date(get(row, "date")).toLocaleString("en-US", {
-                dateStyle: "medium",
-                timeStyle: "short",
-              })}
-            </StyledData>
+            <StyledData key={1}>{get(row, "date")}</StyledData>
 
             <StyledData key={2}>
               {get(row, "typeId") === expenseTypeId ? (
