@@ -9,8 +9,9 @@ import Balance from "../components/balance"
 import Button from "../components/button"
 import PageLayout from "../components/pageLayout"
 import Select from "../components/select"
-import Table from "../components/table/table"
+import Table, { TableColumn } from "../components/table/table"
 import UploadModal from "../components/uploadModal"
+import FormatBrlCurrency from "../components/utils/formatBrlCurrency"
 
 type Transaction = {
   id: number
@@ -20,6 +21,29 @@ type Transaction = {
   productDescription: string
   value: number
 }
+
+const transactionColumns: TableColumn[] = [
+  {
+    path: "formattedDate",
+    label: "Date",
+  },
+  {
+    path: "type.description",
+    label: "Type",
+  },
+  {
+    path: "sellerName",
+    label: "Seller",
+  },
+  {
+    path: "productDescription",
+    label: "Product",
+  },
+  {
+    path: "formattedValue",
+    label: "Value",
+  },
+]
 
 function fetchTransactions(): Promise<AxiosResponse> {
   return axios.get("Transaction")
@@ -78,7 +102,8 @@ function Transactions(): ReactElement {
         setTransactions(
           response.data.map((d: Transaction) => ({
             ...d,
-            date: moment.utc(d.date).tz(timeZone).format("lll"),
+            formattedDate: moment.utc(d.date).tz(timeZone).format("lll"),
+            formattedValue: FormatBrlCurrency(d.value),
           }))
         )
       }
@@ -110,6 +135,7 @@ function Transactions(): ReactElement {
         emptyTitle="No transactions yet"
         emptySubtitle="Upload transactions files to view them here."
         rows={filteredSellers}
+        columns={transactionColumns}
       />
       <UploadModal isOpen={isUploadModalOpen} onClose={handleUploadModal} />
     </PageLayout>

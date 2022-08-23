@@ -1,10 +1,6 @@
-function FormatBrlCurrency(
-  value: number,
-  language: string,
-  currencyCode: string
-): string {
-  return new Intl.NumberFormat(language, {
-    currency: currencyCode,
+function FormatBrlCurrency(value: number): string {
+  return new Intl.NumberFormat(`pt-BR`, {
+    currency: `BRL`,
     style: "currency",
   }).format(value)
 }

@@ -39,15 +39,15 @@ function Balance({ income, expense }: Props): ReactElement {
   return (
     <Container>
       <h4>Total Balance</h4>
-      <h1>{FormatBrlCurrency(income - expense, "pt-BR", "BRL")}</h1>
+      <h1>{FormatBrlCurrency(income - expense)}</h1>
       <Footer>
         <FooterContent>
           <IncomeIcon size={20} />
-          <h4>{FormatBrlCurrency(income, "pt-BR", "BRL")}</h4>
+          <h4>{FormatBrlCurrency(income)}</h4>
         </FooterContent>
         <FooterContent>
           <ExpenseIcon size={20} />
-          <h4>{FormatBrlCurrency(expense, "pt-BR", "BRL")}</h4>
+          <h4>{FormatBrlCurrency(expense)}</h4>
         </FooterContent>
       </Footer>
     </Container>
