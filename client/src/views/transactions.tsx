@@ -35,13 +35,6 @@ function Transactions(): ReactElement {
     setSellectedSeller(e.target.value)
   }
 
-  const getTotalBalance = (): number => {
-    return filteredSellers.reduce(
-      (sum, t) => sum + (t.typeId === expenseTypeId ? -t.value : t.value),
-      0
-    )
-  }
-
   const getTotalIncome = (): number => {
     return filteredSellers.reduce(
       (sum, t) => sum + (t.typeId === expenseTypeId ? 0 : t.value),
@@ -92,11 +85,7 @@ function Transactions(): ReactElement {
         </>
       }
       rightElement={
-        <Balance
-          value={getTotalBalance()}
-          income={getTotalIncome()}
-          expense={getTotalExpense()}
-        />
+        <Balance income={getTotalIncome()} expense={getTotalExpense()} />
       }
     >
       <Table

@@ -14,7 +14,6 @@ const GlobalStyle = createGlobalStyle`
     --gray-600: #424242;
 
     --dark-blue: #021D3B;
-    --blue: rgba(2, 28, 59, 0.8);
 
     --font-primary: 'Raleway', sans-serif;
   }

@@ -1,9 +1,12 @@
 import React, { ReactElement } from "react"
 
-import styled, { css } from "styled-components"
+import styled from "styled-components"
+
+import LoadingIcon from "./loadingIcon"
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   secondary?: boolean
+  loading?: boolean
 }
 
 const StyledButton = styled.button<Props>`
@@ -20,27 +23,29 @@ const StyledButton = styled.button<Props>`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 10%;
   border-radius: 6px;
   cursor: pointer;
-  ${({ disabled }) =>
-    disabled &&
-    css`
-      color: var(--gray-300);
-      background-color: var(--gray-200);
-      border-color: var(--gray-200);
-      cursor: not-allowed;
-    `}
 
   &:hover {
-    background-color: ${({ secondary, disabled }) =>
-      secondary || disabled ? "var(--gray-200)" : "var(--blue)"};
+    opacity: 0.8;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 `
 
-function Button({ secondary, children, ...rest }: Props): ReactElement {
+function Button({
+  secondary,
+  loading,
+  children,
+  ...rest
+}: Props): ReactElement {
   return (
     <StyledButton {...rest} secondary={secondary}>
+      {loading && <LoadingIcon />}
       {children}
     </StyledButton>
   )

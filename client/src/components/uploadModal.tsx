@@ -35,7 +35,7 @@ const Card = styled.div`
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  min-height: 500px;
+  min-height: 475px;
   min-width: 600px;
   background: var(--white);
   border-radius: 15px;
@@ -135,6 +135,7 @@ const StyledXIcon = styled(TbX)`
 
 const StyledButton = styled(Button)`
   width: 40%;
+  height: 45px;
 `
 
 function uploadFile(file: File): Promise<AxiosResponse> {
@@ -185,6 +186,7 @@ function UploadModal({ isOpen, onClose }: Props): ReactElement {
         console.log({ response })
       }
     })()
+    window.location.reload()
   }
 
   return (
@@ -223,7 +225,11 @@ function UploadModal({ isOpen, onClose }: Props): ReactElement {
           <StyledButton secondary onClick={onClose}>
             Cancel
           </StyledButton>
-          <StyledButton disabled={!selectedFile} onClick={handleSubmission}>
+          <StyledButton
+            loading={isUploading}
+            disabled={!selectedFile || isUploading}
+            onClick={handleSubmission}
+          >
             Upload file
           </StyledButton>
         </FormFooter>

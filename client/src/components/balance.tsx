@@ -6,7 +6,6 @@ import styled from "styled-components"
 import FormatBrlCurrency from "./utils/formatBrlCurrency"
 
 interface Props {
-  value: number
   income: number
   expense: number
 }
@@ -36,11 +35,11 @@ const ExpenseIcon = styled(TbArrowDownCircle)`
   color: red;
 `
 
-function Balance({ value, income, expense }: Props): ReactElement {
+function Balance({ income, expense }: Props): ReactElement {
   return (
     <Container>
       <h4>Total Balance</h4>
-      <h1>{FormatBrlCurrency(value, "pt-BR", "BRL")}</h1>
+      <h1>{FormatBrlCurrency(income - expense, "pt-BR", "BRL")}</h1>
       <Footer>
         <FooterContent>
           <IncomeIcon size={20} />
