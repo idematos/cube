@@ -113,24 +113,39 @@ const FileBox = styled.div`
   gap: 15px;
 `
 
-const FileIconBox = styled.div`
+const ErrorBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  border: 1px solid red;
+  border-radius: 10px;
+  margin: 20px 0 0 0;
+  padding: 15px;
+  gap: 15px;
+`
+
+const IconBox = styled.div`
   border: 1px solid var(--gray-200);
   border-radius: 5px;
   padding: 5px;
 `
 
-const FileDetails = styled.div`
+const Details = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   flex-grow: 1;
 `
 
-const StyledFileIcon = styled(TbFile)`
+const FileIcon = styled(TbFile)`
   color: var(--dark-blue);
 `
 
-const StyledXIcon = styled(TbX)`
+const ErrorIcon = styled(TbX)`
+  color: red;
+  cursor: pointer;
+`
+
+const CloseIcon = styled(TbX)`
   color: var(--dark-blue);
   cursor: pointer;
 `
@@ -148,13 +163,24 @@ function UploadModal({ isOpen, onClose }: Props): ReactElement {
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [isDragging, setIsDragging] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
+  const [errorMessage, setErrorMessage] = useState("")
+
   const dropZone = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
   const changeHandler = (files?: FileList | null): void => {
     if (files) {
-      setSelectedFile(files[0])
+      const file = files[0]
+      if (file.size > 10000) {
+        setErrorMessage(
+          "It seems yout file is too big, try reducing the file size and try again."
+        )
+      } else {
+        setErrorMessage("")
+        setSelectedFile(file)
+      }
     } else {
+      setErrorMessage("")
       setSelectedFile(null)
       if (inputRef.current) inputRef.current.value = ""
     }
@@ -183,12 +209,12 @@ function UploadModal({ isOpen, onClose }: Props): ReactElement {
       const response = await uploadFile(selectedFile)
       setIsUploading(false)
       if (response.status === 200) {
-        console.log("Subiu com sucesso!")
+        window.location.reload()
       } else {
-        console.log({ response })
+        setSelectedFile(null)
+        setErrorMessage("An error occurred while the file was being submitted.")
       }
     })()
-    window.location.reload()
   }
 
   return (
@@ -212,17 +238,29 @@ function UploadModal({ isOpen, onClose }: Props): ReactElement {
           </UploadBox>
           {selectedFile && (
             <FileBox>
-              <FileIconBox>
-                <StyledFileIcon size={25} />
-              </FileIconBox>
-              <FileDetails>
+              <IconBox>
+                <FileIcon size={25} />
+              </IconBox>
+              <Details>
                 <h5>{selectedFile.name}</h5>
                 <StyledSpan>
                   {(selectedFile.size / 1000).toFixed(2)} KB
                 </StyledSpan>
-              </FileDetails>
-              <StyledXIcon size={15} onClick={() => changeHandler()} />
+              </Details>
+              <CloseIcon size={15} onClick={() => changeHandler()} />
             </FileBox>
+          )}
+          {errorMessage.length > 0 && (
+            <ErrorBox>
+              <IconBox>
+                <ErrorIcon size={20} />
+              </IconBox>
+              <Details>
+                <h5>Sorry</h5>
+                <StyledSpan>{errorMessage}</StyledSpan>
+              </Details>
+              <CloseIcon size={15} onClick={() => changeHandler()} />
+            </ErrorBox>
           )}
         </FormContent>
         <FormFooter>
