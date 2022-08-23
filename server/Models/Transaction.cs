@@ -33,6 +33,7 @@ public class Transaction : IEquatable<Transaction>
     }
 
     public bool Equals(Transaction? other) => other != null &&
+        Type.Id == other.Type.Id &&
         Date.CompareTo(other.Date) == 0 &&
         ProductDescription == other.ProductDescription &&
         Value == other.Value &&
