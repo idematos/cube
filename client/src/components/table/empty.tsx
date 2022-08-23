@@ -13,9 +13,10 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: var(--white);
+  background-color: var(--gray-100);
   border-radius: 10px;
   gap: 20px;
+  padding-bottom: 200px;
   flex-grow: 1;
 `
 
@@ -23,20 +24,18 @@ const NoDataIcon = styled(TbFilesOff)`
   color: var(--gray-200);
 `
 
-const Title = styled.h1`
-  font-size: 1.5rem;
+const Title = styled.h2`
   color: var(--gray-500);
 `
 
 const Subtitle = styled.span`
-  font-size: 1rem;
   color: var(--gray-400);
 `
 
 function Empty({ title, subtitle }: Props): ReactElement {
   return (
     <Container>
-      <NoDataIcon size={70} />
+      <NoDataIcon size={75} />
       <Title>{title}</Title>
       <Subtitle>{subtitle}</Subtitle>
     </Container>

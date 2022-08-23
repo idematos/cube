@@ -10,8 +10,7 @@ interface Props {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-end;
+  justify-content: space-between;
   gap: 20px;
 `
 

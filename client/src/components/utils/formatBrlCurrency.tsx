@@ -1,4 +1,4 @@
-function FormatCurrency(
+function FormatBrlCurrency(
   value: number,
   language: string,
   currencyCode: string
@@ -9,4 +9,4 @@ function FormatCurrency(
   }).format(value)
 }
 
-export default FormatCurrency
+export default FormatBrlCurrency

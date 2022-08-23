@@ -24,15 +24,15 @@ const PageContent = styled.div`
   flex-direction: column;
   padding: 50px;
   min-height: 0;
-  gap: 50px;
+  gap: 30px;
   flex-grow: 1;
 `
 
 const HeaderContent = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
   justify-content: space-between;
+  max-height: 100px;
   flex-grow: 1;
 `
 
