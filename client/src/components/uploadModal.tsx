@@ -1,6 +1,7 @@
 import { ReactElement, useEffect, useRef, useState } from "react"
 
-import axios, { AxiosResponse } from "axios"
+import { AxiosResponse } from "axios"
+import noop from "lodash"
 import { TbFileUpload, TbFile, TbX } from "react-icons/tb"
 import styled from "styled-components"
 
@@ -12,6 +13,7 @@ interface ContainerProps {
 
 interface Props extends ContainerProps {
   onClose: () => void
+  uploadFile: (file: File) => Promise<AxiosResponse>
 }
 
 interface UploadProps {
@@ -155,11 +157,7 @@ const StyledButton = styled(Button)`
   height: 45px;
 `
 
-function uploadFile(file: File): Promise<AxiosResponse> {
-  return axios.postForm("Transaction/file", { file })
-}
-
-function UploadModal({ isOpen, onClose }: Props): ReactElement {
+function UploadModal({ isOpen, onClose, uploadFile }: Props): ReactElement {
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [isDragging, setIsDragging] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
@@ -168,26 +166,8 @@ function UploadModal({ isOpen, onClose }: Props): ReactElement {
   const dropZone = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const changeHandler = (files?: FileList | null): void => {
-    if (files) {
-      const file = files[0]
-      if (file.size > 10000) {
-        setErrorMessage(
-          "It seems yout file is too big, try reducing the file size and try again."
-        )
-      } else {
-        setErrorMessage("")
-        setSelectedFile(file)
-      }
-    } else {
-      setErrorMessage("")
-      setSelectedFile(null)
-      if (inputRef.current) inputRef.current.value = ""
-    }
-  }
-
   useEffect(() => {
-    if (!dropZone?.current) return
+    if (!dropZone?.current) return () => noop
 
     dropZone.current.addEventListener(
       "dragover",
@@ -200,19 +180,54 @@ function UploadModal({ isOpen, onClose }: Props): ReactElement {
       false
     )
     dropZone.current.addEventListener("drop", () => setIsDragging(false), false)
+
+    return () => {
+      dropZone.current?.removeEventListener(
+        "dragover",
+        () => setIsDragging(true),
+        false
+      )
+      dropZone.current?.removeEventListener(
+        "dragleave",
+        () => setIsDragging(false),
+        false
+      )
+      dropZone.current?.removeEventListener(
+        "drop",
+        () => setIsDragging(false),
+        false
+      )
+    }
   }, [])
+
+  const changeHandler = (files?: FileList | null): void => {
+    setErrorMessage("")
+    if (files) {
+      const file = files[0]
+      if (file.size > 10000) {
+        setErrorMessage(
+          "It seems your file is too big, try reducing the file size and try again."
+        )
+      } else {
+        setSelectedFile(file)
+      }
+    } else {
+      setSelectedFile(null)
+      if (inputRef.current) inputRef.current.value = ""
+    }
+  }
 
   const handleSubmission = (): void => {
     if (!selectedFile) return
     setIsUploading(true)
     ;(async () => {
-      const response = await uploadFile(selectedFile)
-      setIsUploading(false)
-      if (response.status === 200) {
+      try {
+        await uploadFile(selectedFile)
         window.location.reload()
-      } else {
+      } catch (error: any) {
+        setIsUploading(false)
         setSelectedFile(null)
-        setErrorMessage("An error occurred while the file was being submitted.")
+        setErrorMessage(error.response?.data.detail ?? error.message)
       }
     })()
   }
