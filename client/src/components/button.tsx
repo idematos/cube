@@ -2,7 +2,7 @@ import React, { ReactElement } from "react"
 
 import styled from "styled-components"
 
-import LoadingIcon from "./loadingIcon"
+import ButtonLoadingIcon from "./icon/buttonLoadingIcon"
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   secondary?: boolean
@@ -45,7 +45,7 @@ function Button({
 }: Props): ReactElement {
   return (
     <StyledButton {...rest} secondary={secondary}>
-      {loading && <LoadingIcon />}
+      {loading && <ButtonLoadingIcon />}
       {children}
     </StyledButton>
   )

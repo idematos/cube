@@ -29,8 +29,8 @@ const Container = styled.div`
   }
 `
 
-function LoadingIcon(): ReactElement {
+function ButtonLoadingIcon(): ReactElement {
   return <Container />
 }
 
-export default LoadingIcon
+export default ButtonLoadingIcon

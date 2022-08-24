@@ -3,9 +3,12 @@ import { ReactElement } from "react"
 import { TbFilesOff } from "react-icons/tb"
 import styled from "styled-components"
 
+import TableLoadingIcon from "../icon/tableLoadingIcon"
+
 interface Props {
   title: string
   subtitle: string
+  loading?: boolean
 }
 
 const Container = styled.div`
@@ -32,12 +35,18 @@ const Subtitle = styled.span`
   color: var(--gray-400);
 `
 
-function Empty({ title, subtitle }: Props): ReactElement {
+function Empty({ title, subtitle, loading }: Props): ReactElement {
   return (
     <Container>
-      <NoDataIcon size={75} />
-      <Title>{title}</Title>
-      <Subtitle>{subtitle}</Subtitle>
+      {loading ? (
+        <TableLoadingIcon />
+      ) : (
+        <>
+          <NoDataIcon size={75} />
+          <Title>{title}</Title>
+          <Subtitle>{subtitle}</Subtitle>{" "}
+        </>
+      )}
     </Container>
   )
 }
