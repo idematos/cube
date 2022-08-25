@@ -10,6 +10,7 @@ namespace Cube.Tests;
 public class TransactionServiceTests
 {
     private readonly DbConnection _connection;
+
     private readonly DbContextOptions<ApplicationContext> _contextOptions;
 
     private readonly TransactionService _transactionService;
