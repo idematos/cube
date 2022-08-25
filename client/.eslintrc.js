@@ -156,4 +156,4 @@ module.exports = {
     document: false,
     localStorage: false,
   },
-};
+}

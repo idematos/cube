@@ -19,7 +19,7 @@ const Container = styled.div`
 const Label = styled.label`
   display: flex;
   color: var(--dark-blue);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
 `
 
