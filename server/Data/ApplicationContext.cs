@@ -10,7 +10,7 @@ public class ApplicationContext : DbContext
 
     private bool _isTest = false;
 
-    public ApplicationContext(DbContextOptions options, bool isTest) : base(options)
+    public ApplicationContext(DbContextOptions options, bool isTest = false) : base(options)
     {
         _isTest = isTest;
     }
