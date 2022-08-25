@@ -1,6 +1,8 @@
+using Cube.Models;
+
 namespace Cube.Services;
 
 public interface ITransactionService
 {
-    void ParseTransactions(IEnumerable<string> transactions);
+    List<Transaction> ParseTransactions(IEnumerable<string> transactions);
 }

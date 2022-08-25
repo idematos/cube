@@ -28,12 +28,19 @@ public class TransactionController : ControllerBase
     }
 
     [HttpPost("file")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public IActionResult PostTransactionsFile([FromForm] IFormFile file)
     {
-        _transactionService.ParseTransactions(file.ReadAsList());
-        return Ok();
+        try
+        {
+            var transactions = _transactionService.ParseTransactions(file.ReadAsList());
+            return Created("/transaction", transactions);
+        }
+        catch (ArgumentException e)
+        {
+            return ValidationProblem(e.Message);
+        }
     }
-
 }
 

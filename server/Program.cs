@@ -14,6 +14,15 @@ builder.WebHost.UseUrls("http://*:8080");
 
 var app = builder.Build();
 
+app.Use(async (context, next) =>
+{
+    await next();
+    if (context.Response.StatusCode == 404)
+    {
+        context.Request.Path = "/";
+        await next();
+    }
+});
 app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
@@ -22,7 +31,6 @@ app.UseSwaggerUI(options =>
 });
 app.UseDefaultFiles();
 app.UseStaticFiles();
-app.UseAuthorization();
 app.MapControllers();
 
 app.Run();

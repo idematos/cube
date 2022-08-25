@@ -8,12 +8,17 @@ public class ApplicationContext : DbContext
     public DbSet<Transaction> Transactions => Set<Transaction>();
     public DbSet<TransactionType> TransactionTypes => Set<TransactionType>();
 
-    public ApplicationContext(DbContextOptions options) : base(options)
-    { }
+    private bool _isTest = false;
+
+    public ApplicationContext(DbContextOptions options, bool isTest) : base(options)
+    {
+        _isTest = isTest;
+    }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql(Config.ConnectionString);
+        if (!_isTest)
+            optionsBuilder.UseNpgsql(Config.ConnectionString);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
