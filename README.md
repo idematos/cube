@@ -12,7 +12,10 @@ You can then go to `http://localhost:8080/` to view it in the browser.
 You can also go to `http://localhost:8080/swagger` to read the documentation on the server API.
 
 ## Unit tests
-To test the application, from the root of the project, run
+
+Unit tests are automatically ran when the Docker images are being built. 
+
+If you wish to run them separately, you will need .NET installed in your machine. Then, from the root of the project, just run
 ```
 cd server && dotnet test
 ```

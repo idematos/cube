@@ -10,6 +10,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 
 # Build the server
 COPY ../server/ server/
+RUN dotnet test ./server/cube-api.csproj -c Release
 RUN dotnet publish ./server/cube-api.csproj -c Release
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
