@@ -10,7 +10,8 @@ import PageLayout from "../components/pageLayout"
 import Select from "../components/select"
 import Table, { TableColumn } from "../components/table/table"
 import UploadModal from "../components/uploadModal"
-import FormatBrlCurrency from "../components/utils/formatBrlCurrency"
+import formatBrlCurrency from "../components/utils/formatBrlCurrency"
+import { numberSorter, stringSorter } from "../components/utils/sorters"
 import {
   fetchTransactions,
   uploadTransactionFile,
@@ -31,43 +32,43 @@ type Transaction = {
   value: number
 }
 
+const timeZone = moment.tz.guess()
+
 const transactionColumns: TableColumn[] = [
   {
+    path: "id",
     label: "ID",
-    raw: "id",
-    formatted: "formattedId",
-    isNumeric: true,
+    sorter: numberSorter,
+    formatter: (value: number) => `# ${value}`,
   },
   {
+    path: "date",
     label: "Date",
-    raw: "date",
-    formatted: "formattedDate",
-    isNumeric: false,
+    formatter: (value: string) => moment.utc(value).tz(timeZone).format("lll"),
   },
   {
+    path: "type",
     label: "Type",
-    raw: "type.description",
-    formatted: "formattedType",
-    isNumeric: false,
+    sorter: (rows, direction) =>
+      stringSorter(rows, direction, "type.description"),
+    formatter: (value) =>
+      value.nature === 1
+        ? `(-) ${value.description}`
+        : `(+) ${value.description}`,
   },
   {
+    path: "sellerName",
     label: "Seller",
-    raw: "sellerName",
-    formatted: "sellerName",
-
-    isNumeric: false,
   },
   {
+    path: "productDescription",
     label: "Product",
-    raw: "productDescription",
-    formatted: "productDescription",
-    isNumeric: false,
   },
   {
+    path: "value",
     label: "Value",
-    raw: "value",
-    formatted: "formattedValue",
-    isNumeric: true,
+    sorter: numberSorter,
+    formatter: (value: number) => formatBrlCurrency(value),
   },
 ]
 
@@ -120,20 +121,7 @@ function Transactions(): ReactElement {
       const response = await fetchTransactions()
       setIsLoading(false)
       if (response.status === 200) {
-        const timeZone = moment.tz.guess()
-
-        setTransactions(
-          response.data.map((d: Transaction) => ({
-            ...d,
-            formattedId: `# ${d.id}`,
-            formattedDate: moment.utc(d.date).tz(timeZone).format("lll"),
-            formattedType:
-              d.type.nature === 1
-                ? `(-) ${d.type.description}`
-                : `(+) ${d.type.description}`,
-            formattedValue: FormatBrlCurrency(d.value),
-          }))
-        )
+        setTransactions(response.data)
       }
     })()
   }, [])

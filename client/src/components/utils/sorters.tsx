@@ -11,13 +11,13 @@ function getSign(direction: SortDirection): number {
 export function stringSorter(
   rows: TableRow[],
   direction: SortDirection,
-  label: string
+  path: string
 ): TableRow[] {
   const sign = getSign(direction)
 
   return [...rows].sort((a, b) =>
-    (get(a, label) as string).toLowerCase() <
-    (get(b, label) as string).toLowerCase()
+    (get(a, path) as string).toLowerCase() <
+    (get(b, path) as string).toLowerCase()
       ? sign
       : -sign
   )
@@ -26,12 +26,11 @@ export function stringSorter(
 export function numberSorter(
   rows: TableRow[],
   direction: SortDirection,
-  label: string
+  path: string
 ): TableRow[] {
   const sign = getSign(direction)
 
   return [...rows].sort(
-    (a, b) =>
-      -sign * (get(a, label) as number) + sign * (get(b, label) as number)
+    (a, b) => -sign * (get(a, path) as number) + sign * (get(b, path) as number)
   )
 }

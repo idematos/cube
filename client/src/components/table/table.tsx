@@ -1,27 +1,29 @@
 import React, { ReactElement, useState } from "react"
 
-import get from "lodash/get"
 import { TbArrowsSort } from "react-icons/tb"
 import styled from "styled-components"
 
-import { numberSorter, SortDirection, stringSorter } from "../utils/sorter"
+import { SortDirection, stringSorter } from "../utils/sorters"
 import Empty from "./empty"
 
 export interface TableRow {
-  [key: string]: string | number
+  [key: string]: object | string | number
 }
 
 export interface TableColumn {
-  raw: string
-  formatted: string
+  path: string
   label: string
-  isNumeric: boolean
+  sorter?: (
+    rows: TableRow[],
+    direction: SortDirection,
+    path: string
+  ) => TableRow[]
+  formatter?: (value: any) => string
 }
 
 interface ColumnSort {
-  label: string
+  column: TableColumn
   direction: SortDirection
-  isNumeric: boolean
 }
 
 interface Props {
@@ -77,7 +79,7 @@ const StyledData = styled.td`
   padding: 25px;
   font-size: 16px;
   color: var(--gray-500);
-  width: 100%;
+  flex-basis: 15%;
 `
 
 function Table({
@@ -91,21 +93,27 @@ function Table({
 
   const sortByColumn = (column: TableColumn): void => {
     let direction: SortDirection = "asc"
-    if (columnSort?.label === column.raw)
+    if (columnSort?.column.path === column.path)
       direction = columnSort.direction === "asc" ? "desc" : "asc"
 
     setColumnSort({
-      label: column.raw,
-      isNumeric: column.isNumeric,
+      column,
       direction,
     })
   }
 
   let sortedRows = rows
   if (columnSort) {
-    if (columnSort.isNumeric)
-      sortedRows = stringSorter(rows, columnSort.direction, columnSort.label)
-    else sortedRows = numberSorter(rows, columnSort.direction, columnSort.label)
+    sortedRows = (columnSort.column.sorter ?? stringSorter)(
+      rows,
+      columnSort.direction,
+      columnSort.column.path
+    )
+  }
+
+  const formatRow = (row: TableRow, column: TableColumn): string => {
+    if (column.formatter) return column.formatter(row[column.path])
+    return row[column.path].toString()
   }
 
   return rows.length > 0 ? (
@@ -113,7 +121,7 @@ function Table({
       <Header>
         <StyledRow>
           {columns?.map((column) => (
-            <HeaderRow key={column.raw} onClick={() => sortByColumn(column)}>
+            <HeaderRow key={column.path} onClick={() => sortByColumn(column)}>
               {column.label}
               <TbArrowsSort size={15} />
             </HeaderRow>
@@ -125,7 +133,7 @@ function Table({
         {sortedRows.map((row, rowIdx) => (
           <StyledRow key={rowIdx}>
             {columns?.map((column, colIdx) => (
-              <StyledData key={colIdx}>{get(row, column.formatted)}</StyledData>
+              <StyledData key={colIdx}>{formatRow(row, column)}</StyledData>
             ))}
           </StyledRow>
         ))}

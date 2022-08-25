@@ -3,7 +3,7 @@ import { ReactElement } from "react"
 import { TbArrowUpCircle, TbArrowDownCircle } from "react-icons/tb"
 import styled from "styled-components"
 
-import FormatBrlCurrency from "./utils/formatBrlCurrency"
+import formatBrlCurrency from "./utils/formatBrlCurrency"
 
 interface Props {
   income: number
@@ -39,15 +39,15 @@ function Balance({ income, expense }: Props): ReactElement {
   return (
     <Container>
       <h4>Total Balance</h4>
-      <h1>{FormatBrlCurrency(income - expense)}</h1>
+      <h1>{formatBrlCurrency(income - expense)}</h1>
       <Footer>
         <FooterContent>
           <IncomeIcon size={20} />
-          <h4>{FormatBrlCurrency(income)}</h4>
+          <h4>{formatBrlCurrency(income)}</h4>
         </FooterContent>
         <FooterContent>
           <ExpenseIcon size={20} />
-          <h4>{FormatBrlCurrency(expense)}</h4>
+          <h4>{formatBrlCurrency(expense)}</h4>
         </FooterContent>
       </Footer>
     </Container>
