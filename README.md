@@ -1,7 +1,9 @@
-# cube
+# Cube
 A React application and .NET server for managing product transactions.
 
-## Running the app
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
+## Running
 To run the app, you will need to have Docker installed. From the root of the project, execute
 ```
 docker compose -f docker/docker-compose.yml up
